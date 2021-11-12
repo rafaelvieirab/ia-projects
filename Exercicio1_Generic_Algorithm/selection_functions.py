@@ -7,7 +7,8 @@ def selection_by_tournament(population: list, population_fitness: list, individu
     selecteds = []
 
     remaining = list(population)
-    for i in range(individuals_number):
+
+    while(len(remaining) > 1):
         pos1 = random.randint(0, len(remaining))
         remaining.pop(pos1)
         pos2 = random.randint(0, len(remaining))
@@ -26,4 +27,7 @@ def selection_by_tournament(population: list, population_fitness: list, individu
                 selected = population[pos1] 
 
         selecteds.append(selected)
+
+    if(len(remaining) == 1):
+        selecteds.append(remaining[0])
     return selecteds
