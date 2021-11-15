@@ -2,29 +2,27 @@ import random
 
 PROBABILITY_K = 0.75
 
-def selection_by_tournament(population: list, population_fitness: list, individuals_number: int, better_function) -> list:
+def selection_by_tournament(population: list, population_fitness: list, better_function) -> list:
     k = PROBABILITY_K
     selecteds = []
 
-    remaining = list(population)
+    remaining = [i for i in range(len(population))]
 
     while(len(remaining) > 1):
-        pos1 = random.randint(0, len(remaining))
-        remaining.pop(pos1)
-        pos2 = random.randint(0, len(remaining))
-        remaining.pop(pos2)
+        pos1 = random.choice(remaining)
+        remaining.remove(pos1)
+        
+        pos2 = random.choice(remaining)
+        remaining.remove(pos2)
 
-        better = better_function(population_fitness[pos1], population_fitness[pos2])
+        (better, worse) = better_function(population_fitness, pos1, pos2)
         r = random.random()
         selected = None
 
-        if r < k: #  escolhe o melhor individuo
+        if r < k:
             selected = better
-        else: # escolhe o pior individuo
-            if better == population_fitness[pos1]:
-                selected = population[pos2]
-            else:
-                selected = population[pos1] 
+        else:
+            selected = worse
 
         selecteds.append(selected)
 

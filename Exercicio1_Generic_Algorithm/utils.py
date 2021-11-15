@@ -1,23 +1,19 @@
-def _get_signal(decimal: int) ->  int:
-    if decimal < 0:
-        return 1
-    return 0
+def decimal_to_binary(decimal: int, bits_number = 4) -> str:
+    binary = ''
+    if(decimal < 0):
+        binary += '-'
+    else:
+        binary += '+'
+    
+    [_ , binary_unsignal] = bin(decimal).split('b')
 
-def convert_decimal_to_binary2(decimal: int) -> str:
-    return bin(decimal)
+    
+    while(len(binary_unsignal) < bits_number):
+        binary_unsignal = '0' + binary_unsignal
 
-def convert_binary_to_decimal2(binary: str) -> int:
+    binary += binary_unsignal
+
+    return binary
+
+def binary_to_decimal(binary: str) -> int:
     return int(binary, 2)
-
-def convert_decimal_to_binary(decimal: int) -> list:
-    signal_bit = _get_signal(decimal)
-    binaries = list()
-
-    while(decimal):
-        binaries.append(decimal % 2)
-        decimal /= 2
-    return binaries
-
-def convert_binary_to_decimal(binary: list) -> int:
-    binaries = list()
-    return binaries
